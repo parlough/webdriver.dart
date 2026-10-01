@@ -12,6 +12,9 @@ on:
 env:
   PUB_ENVIRONMENT: bot.github
 
+permissions:
+  contents: read
+
 jobs:
   analyze:
     runs-on: ubuntu-latest
@@ -20,8 +23,8 @@ jobs:
       matrix:
         sdk: [dev]
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-    - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+    - uses: dart-lang/setup-dart@6afc89df92d6eb3834022f73cd65adc8cdfcb92d
       with:
         sdk: ${{ matrix.sdk }}
     - id: install
@@ -42,11 +45,11 @@ jobs:
         os: [ubuntu-latest]
         sdk: [3.4, stable, dev]
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-    - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+    - uses: dart-lang/setup-dart@6afc89df92d6eb3834022f73cd65adc8cdfcb92d
       with:
         sdk: ${{ matrix.sdk }}
-    - uses: nanasess/setup-chromedriver@46174af8ff4d958c291f6830dacee57ba8c7b97a
+    - uses: nanasess/setup-chromedriver@3e4b0086a2e0ed5f6d670fb0cfebc8c113977aa3
     - id: install
       name: Install dependencies
       run: dart pub get
@@ -68,11 +71,11 @@ jobs:
         os: [ ubuntu-latest ]
         sdk: [ 3.4, stable, dev ]
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: dart-lang/setup-dart@6afc89df92d6eb3834022f73cd65adc8cdfcb92d
         with:
           sdk: ${{ matrix.sdk }}
-      - uses: browser-actions/setup-firefox@latest
+      - uses: browser-actions/setup-firefox@0bc507ddf224827e3b1af68e014d5e42ab93e795
       - uses: browser-actions/setup-geckodriver@eb8b0670366f719ca31703766a8cb7e3ea2c56ed
       - id: install
         name: Install dependencies
