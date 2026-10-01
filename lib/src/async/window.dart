@@ -59,8 +59,8 @@ class Window {
   }
 
   /// Sets the window location.
-  Future<void> setLocation(Position point) => _client.send(
-      _handler.window.buildSetLocationRequest(point),
+  Future<void> setLocation(Position position) => _client.send(
+      _handler.window.buildSetLocationRequest(position),
       _handler.window.parseSetLocationResponse);
 
   /// Sets the window size.
@@ -68,7 +68,7 @@ class Window {
       _handler.window.buildSetSizeRequest(size),
       _handler.window.parseSetSizeResponse);
 
-  /// The location and size of the window.
+  /// Sets the location and size of the window.
   Future<void> setRect(Rect rect) async {
     try {
       await _client.send(_handler.window.buildSetRectRequest(rect),

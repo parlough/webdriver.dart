@@ -54,10 +54,8 @@ class W3cWindowHandler extends WindowHandler {
   WebDriverRequest buildSizeRequest() => buildRectRequest();
 
   @override
-  Size parseSizeResponse(WebDriverResponse response) {
-    final rect = parseRectResponse(response);
-    return rect.size;
-  }
+  Size parseSizeResponse(WebDriverResponse response) =>
+      parseRectResponse(response).size;
 
   @override
   WebDriverRequest buildRectRequest() =>

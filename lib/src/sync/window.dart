@@ -61,8 +61,8 @@ class Window {
   /// Sets the window location.
   ///
   /// TODO(jingbian): Remove this, prefer setter.
-  void setLocation(Position point) {
-    location = point;
+  void setLocation(Position position) {
+    location = position;
   }
 
   /// Sets the window location.

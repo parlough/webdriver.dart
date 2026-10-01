@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// A two-dimensional location represented by [x] and [y] coordinates on
-/// a 2D-coordinate system where the origin `(0, 0)` is in the top-left corner.
+/// A position in a two-dimensional coordinate system.
+///
+/// The [x] coordinate increases to the right and
+/// the [y] coordinate increases downward.
+/// Coordinates can be negative relative to the origin.
 final class Position {
   /// The x-coordinate of this position.
   final int x;
@@ -36,33 +39,38 @@ final class Position {
   String toString() => 'Position(x: $x, y: $y)';
 }
 
-/// A rectangle, which is a quadrilateral with four right angles, represented on
-/// a 2D-coordinate system where the origin `(0, 0)` is in the top-left corner.
+/// An axis-aligned rectangle with an integer position and size.
+///
+/// Coordinates increase to the right and downward.
+/// The position might be negative,
+/// but the width and height are always non-negative.
 final class Rect {
-  final int _left;
-  final int _top;
-  final int _width;
-  final int _height;
+  /// The x-coordinate of the left edge of this rectangle.
+  final int left;
+
+  /// The y-coordinate of the top edge of this rectangle.
+  final int top;
+
+  /// The non-negative width of this rectangle.
+  final int width;
+
+  /// The non-negative height of this rectangle.
+  final int height;
 
   /// Create a rectangle with its upper-left corner at `(left, top)`
-  /// and its bottom right corner at `(left + width, top + height)`.
+  /// and the given [width] and [height].
   ///
-  /// [width] and [height] should both be non-negative.
-  /// If they aren't, they are clamped to zero.
+  /// Negative [width] and [height] values are clamped to zero.
   const Rect({
-    required int left,
-    required int top,
+    required this.left,
+    required this.top,
     required int width,
     required int height,
-  })  : _top = top,
-        _left = left,
-        _width = (width < 0) ? 0 : width,
-        _height = (height < 0) ? 0 : height;
+  })  : width = (width < 0) ? 0 : width,
+        height = (height < 0) ? 0 : height;
 
-  /// Create a rectangle with its upper-left corner at `(topLeft.x, topLeft.y)`
-  /// and its bottom right corner at `(topLeft.x + width, topLeft.y + height)`.
-  ///
-  /// The `width` and `height` of [Size] should both be non-negative.
+  /// Create a rectangle with its upper-left corner at [topLeft] and
+  /// with the given [size].
   factory Rect.from({required Position topLeft, required Size size}) => Rect(
         left: topLeft.x,
         top: topLeft.y,
@@ -70,26 +78,14 @@ final class Rect {
         height: size.height,
       );
 
-  /// The width of this rectangle.
-  int get width => _width;
-
-  /// The height of this rectangle.
-  int get height => _height;
-
   /// The size of this rectangle.
-  Size get size => Size(width: _width, height: _height);
-
-  /// The x-coordinate of the left edge of this rectangle.
-  int get left => _left;
-
-  /// The y-coordinate of the top edge of this rectangle.
-  int get top => _top;
+  Size get size => Size(width: width, height: height);
 
   /// The x-coordinate of the right edge of this rectangle.
-  int get right => _left + _width;
+  int get right => left + width;
 
-  /// The x-coordinate of the bottom edge of this rectangle.
-  int get bottom => _top + _height;
+  /// The y-coordinate of the bottom edge of this rectangle.
+  int get bottom => top + height;
 
   /// The location of the top-left corner of this rectangle.
   Position get topLeft => Position(x: left, y: top);
@@ -107,32 +103,31 @@ final class Rect {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Rect &&
-          _left == other._left &&
-          _top == other._top &&
-          _width == other._width &&
-          _height == other._height;
+          left == other.left &&
+          top == other.top &&
+          width == other.width &&
+          height == other.height;
 
   @override
-  int get hashCode => Object.hash(_left, _top, _width, _height);
+  int get hashCode => Object.hash(left, top, width, height);
 
   @override
   String toString() =>
-      'Rect(left: $_left, top: $_top, width: $_width, height: $_height)';
+      'Rect(left: $left, top: $top, width: $width, height: $height)';
 }
 
 /// The width and height dimensions of a 2D object.
 final class Size {
-  /// The width dimension.
+  /// The non-negative width dimension.
   final int width;
 
-  /// The height dimension.
+  /// The non-negative height dimension.
   final int height;
 
   /// Create a size that represents the
   /// specified [width] and [height] dimensions.
   ///
-  /// [width] and [height] should both be non-negative.
-  /// If they aren't, they are clamped to zero.
+  /// Negative [width] and [height] values are clamped to zero.
   const Size({required int width, required int height})
       : width = (width < 0) ? 0 : width,
         height = (height < 0) ? 0 : height;

@@ -71,10 +71,8 @@ class W3cElementHandler extends ElementHandler {
       _buildRectRequest(elementId);
 
   @override
-  Size parseSizeResponse(WebDriverResponse response) {
-    final rect = _parseRectResponse(response);
-    return rect.size;
-  }
+  Size parseSizeResponse(WebDriverResponse response) =>
+      _parseRectResponse(response).size;
 
   WebDriverRequest _buildRectRequest(String elementId) =>
       WebDriverRequest.getRequest('${elementPrefix(elementId)}rect');

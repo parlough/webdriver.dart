@@ -161,8 +161,6 @@ abstract class ElementHandler {
   WebDriverRequest buildSizeRequest(String elementId);
 
   /// Parses response for 'Element Size'.
-  ///
-  /// This will be the rectangle moved to (0, 0).
   Size parseSizeResponse(WebDriverResponse response);
 
   /// Builds request for 'Element Name'.
@@ -367,8 +365,6 @@ abstract class WindowHandler {
   WebDriverRequest buildSizeRequest();
 
   /// Parses response for 'Window Size'.
-  ///
-  /// This will be the rectangle moved to (0, 0).
   Size parseSizeResponse(WebDriverResponse response);
 
   /// Builds request for 'Window Rect'.

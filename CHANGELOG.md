@@ -1,6 +1,7 @@
 ## 4.0.0-wip
 
-* Replace usages of `Point<int>` and `Rectangle<int>` from `dart:math` with
+* **Breaking change:**
+  Replace usages of `Point<int>` and `Rectangle<int>` from `dart:math` with
   custom `Position`, `Rect`, and `Size` types.
 
 ## 3.2.1
