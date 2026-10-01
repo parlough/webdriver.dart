@@ -54,8 +54,7 @@ final class Rect {
     required int top,
     required int width,
     required int height,
-  })  : assert(width >= 0, height >= 0),
-        _top = top,
+  })  : _top = top,
         _left = left,
         _width = (width < 0) ? 0 : width,
         _height = (height < 0) ? 0 : height;
@@ -135,8 +134,7 @@ final class Size {
   /// [width] and [height] should both be non-negative.
   /// If they aren't, they are clamped to zero.
   const Size({required int width, required int height})
-      : assert(width >= 0, height >= 0),
-        width = (width < 0) ? 0 : width,
+      : width = (width < 0) ? 0 : width,
         height = (height < 0) ? 0 : height;
 
   @override
