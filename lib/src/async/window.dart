@@ -30,21 +30,25 @@ class Window {
       _handler.window.buildSetActiveRequest(id),
       _handler.window.parseSetActiveResponse);
 
-  /// The location of the window.
+  /// The position of the top-left corner of the window on the screen.
   Future<Position> get location => _client.send(
       _handler.window.buildLocationRequest(),
       _handler.window.parseLocationResponse);
 
-  /// The outer size of the window.
+  /// The outer size of the window,
+  /// including browser interface elements such as toolbars and borders.
   Future<Size> get size => _client.send(
       _handler.window.buildSizeRequest(), _handler.window.parseSizeResponse);
 
-  /// The inner size of the window.
+  /// The viewport size of the currently selected browsing context,
+  /// as reported by `window.innerWidth` and `window.innerHeight`.
+  ///
+  /// If a frame is selected, this is the size of that frame's viewport.
   Future<Size> get innerSize => _client.send(
       _handler.window.buildInnerSizeRequest(),
       _handler.window.parseInnerSizeResponse);
 
-  /// The location and size of the window.
+  /// The position and outer size of the window.
   Future<Rect> get rect async {
     try {
       return await _client.send(_handler.window.buildRectRequest(),
@@ -58,17 +62,27 @@ class Window {
     }
   }
 
-  /// Sets the window location.
+  /// Requests that the window be moved so its top-left corner is at [position].
+  ///
+  /// The actual resulting position might differ due to
+  /// browser or window manager constraints.
   Future<void> setLocation(Position position) => _client.send(
       _handler.window.buildSetLocationRequest(position),
       _handler.window.parseSetLocationResponse);
 
-  /// Sets the window size.
+  /// Requests that the window be resized so its outer size is [size].
+  ///
+  /// The actual resulting size might differ due to
+  /// browser or window manager constraints.
   Future<void> setSize(Size size) => _client.send(
       _handler.window.buildSetSizeRequest(size),
       _handler.window.parseSetSizeResponse);
 
-  /// Sets the location and size of the window.
+  /// Requests that the window be moved and resized to
+  /// the position and outer size specified by [rect].
+  ///
+  /// The actual resulting position and size might differ due to
+  /// browser or window manager constraints.
   Future<void> setRect(Rect rect) async {
     try {
       await _client.send(_handler.window.buildSetRectRequest(rect),

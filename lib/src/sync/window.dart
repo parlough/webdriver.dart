@@ -32,19 +32,35 @@ class Window {
         _handler.window.parseSetActiveResponse);
   }
 
-  /// The location of the window.
+  /// The position of the top-left corner of the window on the screen.
+  ///
+  /// Setting this requests a new window position.
+  /// The actual resulting position might differ due to
+  /// browser or window manager constraints.
   Position get location => _client.send(_handler.window.buildLocationRequest(),
       _handler.window.parseLocationResponse);
 
-  /// The outer size of the window.
+  /// The outer size of the window,
+  /// including browser interface elements such as toolbars and borders.
+  ///
+  /// Setting this requests a new outer window size.
+  /// The actual resulting size might differ due to
+  /// browser or window manager constraints.
   Size get size => _client.send(
       _handler.window.buildSizeRequest(), _handler.window.parseSizeResponse);
 
-  /// The inner size of the window.
+  /// The viewport size of the currently selected browsing context,
+  /// as reported by `window.innerWidth` and `window.innerHeight`.
+  ///
+  /// If a frame is selected, this is the size of that frame's viewport.
   Size get innerSize => _client.send(_handler.window.buildInnerSizeRequest(),
       _handler.window.parseInnerSizeResponse);
 
-  /// The location and size of the window.
+  /// The position and outer size of the window.
+  ///
+  /// Setting this requests a new window position and outer size.
+  /// The actual resulting position and size might differ due to
+  /// browser or window manager constraints.
   Rect get rect {
     try {
       return _client.send(_handler.window.buildRectRequest(),
@@ -58,33 +74,34 @@ class Window {
     }
   }
 
-  /// Sets the window location.
+  /// Requests that the window be moved so its top-left corner is at [position].
   ///
-  /// TODO(jingbian): Remove this, prefer setter.
+  /// The actual resulting position might differ due to
+  /// browser or window manager constraints.
+  // TODO(jingbian): Remove this, prefer setter.
   void setLocation(Position position) {
     location = position;
   }
 
-  /// Sets the window location.
   set location(Position value) {
     _client.send(_handler.window.buildSetLocationRequest(value),
         _handler.window.parseSetLocationResponse);
   }
 
-  /// Sets the window size.
+  /// Requests that the window be resized so its outer size is [size].
   ///
-  /// TODO(jingbian): Remove this, prefer setter.
+  /// The actual resulting size might differ due to
+  /// browser or window manager constraints.
+  // TODO(jingbian): Remove this, prefer setter.
   void setSize(Size size) {
     this.size = size;
   }
 
-  /// Sets the window size.
   set size(Size value) {
     _client.send(_handler.window.buildSetSizeRequest(value),
         _handler.window.parseSetSizeResponse);
   }
 
-  /// The location and size of the window.
   set rect(Rect value) {
     try {
       _client.send(_handler.window.buildSetRectRequest(value),

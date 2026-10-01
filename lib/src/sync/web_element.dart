@@ -136,19 +136,17 @@ class WebElement extends common.WebElement implements SearchContext {
   bool get displayed => _client.send(_handler.element.buildDisplayedRequest(id),
       _handler.element.parseDisplayedResponse);
 
-  /// The location of the element.
-  ///
-  /// This is assumed to be the upper left corner of the element, but its
-  /// implementation is not well defined in the JSON spec.
+  /// The position of this element's top-left corner,
+  /// relative to the top-left corner of the document.
   Position get location => _client.send(
       _handler.element.buildLocationRequest(id),
       _handler.element.parseLocationResponse);
 
-  /// The size of this element.
+  /// The width and height of this element.
   Size get size => _client.send(_handler.element.buildSizeRequest(id),
       _handler.element.parseSizeResponse);
 
-  /// The bounds of this element.
+  /// The bounds of this element, combining its [location] and [size].
   Rect get rect {
     final location = this.location;
     final size = this.size;

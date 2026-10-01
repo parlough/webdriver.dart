@@ -74,16 +74,17 @@ class WebElement extends common.WebElement implements SearchContext {
       _handler.element.buildDisplayedRequest(id),
       _handler.element.parseDisplayedResponse);
 
-  /// The location within the document of this element.
+  /// The position of this element's top-left corner,
+  /// relative to the top-left corner of the document.
   Future<Position> get location => _client.send(
       _handler.element.buildLocationRequest(id),
       _handler.element.parseLocationResponse);
 
-  /// The size of this element.
+  /// The width and height of this element.
   Future<Size> get size => _client.send(_handler.element.buildSizeRequest(id),
       _handler.element.parseSizeResponse);
 
-  /// The bounds of this element.
+  /// The bounds of this element, combining its [location] and [size].
   Future<Rect> get rect async {
     final location = await this.location;
     final size = await this.size;
